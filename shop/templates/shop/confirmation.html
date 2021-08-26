@@ -1,0 +1,136 @@
+{%  extends "shop/basic.html" %}
+{% load static %}
+{% block title %}login{% endblock %}
+{% block head %}{% endblock %}
+
+{% block body %}
+
+
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Confirmation</h1>
+					<nav class="d-flex align-items-center">
+						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="category.html">Confirmation</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Order Details Area =================-->
+	<section class="order_details section_gap">
+		<div class="container">
+			<h3 class="title_confirmation">Thank you. Your order has been received.</h3>
+			<div class="row order_d_inner">
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Order Info</h4>
+						<ul class="list">
+							<li><a href="#"><span>Order number</span> : 2326565656</a></li>
+							<li><a href="#"><span>Date</span> : {{o.data_created}}</a></li>
+							<li><a href="#"><span>Price Total</span> : Rs. {{order.get_cart_total}}</a></li>
+							<li><a href="#"><span>Payment Complete</span> : Completed</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Billing Address</h4>
+						<ul class="list">
+
+							<li><a href="#"><span>Address</span> : {{billingaddress.address1}}</a></li>
+							<li><a href="#"><span>City</span> : {{billingaddress.city}}</a></li>
+							<li><a href="#"><span>Country</span> : {{billingaddress.country}}</a></li>
+							<li><a href="#"><span>Postcode </span> : {{billingaddress.zipcode}}</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Shipping Address</h4>
+
+						<ul class="list">
+							<li><a href="#"><span>Address</span> :{{shipingaddress.address1}}</a></li>
+							<li><a href="#"><span>City</span> : {{shipingaddress.city}}</a></li>
+							<li><a href="#"><span>Country</span> : {{shipingaddress.country}}</a></li>
+							<li><a href="#"><span>Postcode </span> : {{shipingaddress.zipcode}}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="order_details_table">
+				<h2>Order Details</h2>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Product</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">Total</th>
+							</tr>
+						</thead>
+						<tbody>
+						{% for i in items %}
+							<tr>
+								<td>
+									<p>({{forloop.counter}}){{i.product.name}}</p>
+								</td>
+								<td>
+									<h5>x{{i.quantity}}</h5>
+								</td>
+								<td>
+									<p>Rs.{{i.get_total}}</p>
+								</td>
+							</tr>
+						{% endfor %}
+						<tr>
+								<td>
+									<h4>Subtotal</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p>Rs.{{order.get_cart_total}}</p>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<h4>Total(18% GST)</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p>Rs.{{carttotal}}</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									
+								</td>
+								<td>
+									<a class="btn btn-secondary" href="{% url 'invoice' %}">Generate invoice</a><br>
+								</td>
+								<td>
+									
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+		</div>
+		
+	</section><br>
+
+	
+	<!--================End Order Details Area =================-->
+{% endblock %}

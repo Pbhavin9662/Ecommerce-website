@@ -1,0 +1,210 @@
+{%  extends "shop/basic.html" %}
+{% load static %}
+{% block title %}Cart view{% endblock %}
+{% block head %}{% endblock %}
+
+{% block body %}
+
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Shopping Cart</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="#">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="#">Cart</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<br><br><br><br>
+<!--================Cart Area =================-->
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in items %}
+                    <tr>
+
+                        <td>
+                            <div class="media">
+                                <div class="d-flex">
+
+                                    <img style="height:100px;width:100px;" src="{{i.product.product_image.url}}" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <p>{{i.product.name}}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <h5>Rs. {{i.product.price}}</h5>
+                        </td>
+                        <td>
+                            <input type="text" name="qty" value="{{i.quantity}}" title="Quantity:"
+                                   class="input-text">
+                            <p>
+                                <button type="button" data-product="{{i.product.id}}" data-action="add"
+                                        class="btn btn-primary update-cart">+
+                                </button>
+                                <button type="button" data-product="{{i.product.id}}" data-action="remove"
+                                        class="btn btn-primary update-cart">-
+                                </button>
+                            </p>
+                        </td>
+                        <td>
+
+                            <h5>Rs.{{i.get_total}}</h5>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+
+                    <tr class="bottom_button">
+                        <td>
+                            <a class="gray_btn" href="#">Update Cart</a>
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                            <div class="cupon_text d-flex align-items-center">
+                                <input type="text" placeholder="Coupon Code">
+                                <a class="primary-btn" href="#">Apply</a>
+                                <a class="gray_btn" href="#">Close Coupon</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                            <h5>Total Item</h5>
+                        </td>
+                        <td>
+                            <h5>{{order.get_cart_items}}</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                            <h5>Subtotal</h5>
+
+                        </td>
+                        <td>
+                            <h5 id="total_price">{{order.get_cart_total}}</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <h5>Grand Total</h5>
+                            <p>Tax (18%)</p>
+
+                        </td>
+                        <td>
+                            <h5 id="56">{{tax_total}}</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><h4>Shipping Address:</h4></td>
+<form method="POST" enctype="multipart/form"  novalidate="novalidate">{% csrf_token %}
+<td>{{form.as_p}}</td>
+                       
+                      <tr>
+                      <td></td>
+                        <td> {% if success %}
+                <li class="list-group-item list-group-item-success">{{success}}</li>
+
+                    {% endif %}</td><td></td>
+                        <td><input type="submit" class="mt-3 btn btn-primary" value="Save"></td>
+                    </tr>
+            </form>
+
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+
+                        <td>
+                            <div class="checkout_btn_inner d-flex align-items-center">
+
+                                <a class="primary-btn" href="../checkout">Proceed to checkout</a>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Cart Area =================-->
+
+
+<script>
+
+    var user = '{{request.user}}';
+
+    function getToken(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getToken('csrftoken');
+
+
+
+
+
+
+
+</script>
+
+
+{% endblock %}

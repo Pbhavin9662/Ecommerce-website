@@ -1,0 +1,121 @@
+{%  extends "shop/basic.html" %}
+{% load static %}
+{% block title %}Register{% endblock %}
+{% block head %}
+<style type="text/css">
+    .login_form input[type="email"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .login_form input[type="text"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .login_form input[type="password"] {
+    margin-bottom: 10px;
+     border-bottom-right-radius: 0;
+    border-bottom-left-radius:0;
+  }
+
+</style>
+{% endblock %}
+
+{% block body %}
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Registration</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="#">Login/Register</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+
+<!--================Login Box Area =================-->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
+                    <div class="hover">
+                        <h4>New to our website?</h4>
+                        <p>There are advances being made in science and technology everyday, and a good example of this
+                            is the</p>
+                        <a class="primary-btn" href="{% url 'login' %}">Login Here</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+                    <h3>Sign Up to enter</h3>
+                    <form class="row login_form" action="" method="POST" id="contactForm"
+                          novalidate="novalidate">{% csrf_token %}
+
+                            <input type="email" name="email" id="inputEmail" class="form-control"
+                                   placeholder="Email address" required autofocus>
+
+                            <input type="text" name="username" id="inputUsername" class="form-control"
+                                   placeholder="Username" required>
+
+                            <input type="password" name="password1" id="inputPassword1" class="form-control"
+                                   placeholder="Password" required>
+
+                            <input type="password" name="password2" id="inputPassword2" class="form-control"
+                                   placeholder="Confirm password" required>
+                            {% for field in registration_form %}
+                        <div class="col-md-12 form-group input-group">
+                            <p>
+                                {% for error in field.errors %}
+                            <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                            </p>
+                            {% endfor %}
+                            {% if registration_form.non_field_errors %}
+                            <div style="color: red">
+                                <p>{{registration_form.non_field_errors}}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <button type="submit" value="submit" class="primary-btn">Sign Up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--================End Login Box Area =================-->
+{% endblock %}
+
+<!-- <div class="col-md-12 form-group input-group">-->
+<!--                            {{form.email}}-->
+<!--                        </div>-->
+<!--                        <div class="col-md-12 form-group input-group">-->
+<!--                            {{form.mobile}}-->
+<!--                        </div>-->
+
+<!--                        <div class="col-md-12 form-group input-group">-->
+<!--                            {{form.password1}}-->
+<!--                        </div>-->
+<!--                         <div class="col-md-12 form-group input-group">-->
+<!--                            {{form.password2}}-->
+<!--                        </div>-->
+<!--&lt;!&ndash;                        <div class="col-md-12 form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="creat_account">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <input type="checkbox" id="f-option2" name="selector">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <label for="f-option2">Keep me Register in</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->

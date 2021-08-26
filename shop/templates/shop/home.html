@@ -1,0 +1,95 @@
+{%  extends "shop/basic.html" %}
+{% load static %}
+{% block title %}Home Page{% endblock %}
+{% block head %}{% endblock %}
+{% block body %}
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Products</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="#">Home</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<div><br>
+<a class="btn btn-primary float-right mr-3" href="{% url 'password_change' %}">Change Account Password</a>
+
+</div>
+<section class="features-area section_gap">
+    <div class="container">
+     {% if user.is_authenticated %}
+            <h1 style="color: green;"><span style="color:orange">Hello {{request.user.username}}</span> ,You are Athenticated successfully</h1>
+            {% else %}
+            <h1 style="color: red;"><span style="color:orange">You are Not Login</span>,Please login...</h1>
+{% endif %}
+        <div><h2 style="background-color:orange;color:white;">All Products</h2>
+
+            <div class="row features-inner">
+
+
+             
+           
+                {% for i in products %}
+                <!-- single features -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-features">
+                        <div class="f-icon">
+                            <a href="product/{{i.id}}/"><img class="image-fluid" style="height:250px;width:250px;"
+                                                             src="{{i.product_image.url}}"
+                                                             alt="product"></a>
+                        </div>
+
+                        <hr>
+                        <h5>{{i.name}}</h5>
+
+                        <h6>Price : {{i.price}} Rs.</h6>
+                        <p class=" text-truncate">{{i.description}}</p>
+                        <hr>
+
+                            <button type="button" data-product = "{{i.id}}" data-action = "add" class="btn btn-primary update-cart">Add to Cart</button>
+                            <button type="button" data-product = "{{i.id}}" data-action = "remove" class="btn btn-primary update-cart">Remove</button>
+                    </div>
+                    <hr>
+
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        <div class="d-flex flex-row-reverse">
+            <div class="p-2">
+                <a href="{% url 'category' %}"><u>Show More</u></a>  
+            </div>
+        </div>
+    </div>
+</section>
+ 
+
+<script>
+
+    var user = '{{request.user}}';
+    console.log("CART USer: ",user)
+    function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+</script> 
+
+
+{% endblock %}

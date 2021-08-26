@@ -1,0 +1,48 @@
+{%  extends "shop/basic.html" %}
+{% load static %}
+{% block title %}Home Page{% endblock %}
+{% block head %}{% endblock %}
+{% block body %}
+<br><br><br><br><br><br><br><br>
+<div class="container">
+    {% if request.user.is_authenticated %}
+    <h2 style="background-color:orange;color:white;">All Products</h2>
+
+    <div class="row features-inner">
+
+
+             
+           
+        {% for i in products %}
+        <!-- single features -->
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="single-features">
+                <div class="f-icon">
+                    <a href="{% url 'product' i.id %}"><img class="image-fluid" style="height:250px;width:250px;" src="{{i.product_image.url}}" alt="product"></a>
+                </div>
+
+                <hr>
+                <h5>{{i.name}}</h5>
+
+                <h6>Price : {{i.price}} Rs.</h6>
+                <p class=" text-truncate">{{i.description}}</p>
+                <hr>
+
+                    <button type="button" data-product = "{{i.id}}" data-action = "add" class="btn btn-primary update-cart">Add to Cart</button>
+                    <button type="button" data-product = "{{i.id}}" data-action = "remove" class="btn btn-primary update-cart">Remove</button>
+        
+            <hr>
+
+    
+        </div>
+    </div>
+    
+        {% endfor %}
+
+</div>
+{% else %}
+<h1 style="color: red;"><span style="color:orange">You are never seen the Product</span>,Please login...</h1>
+{% endif %}
+</div>
+<br><br><br><br><br><br><br><br>
+{% endblock %}

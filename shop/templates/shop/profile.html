@@ -1,0 +1,53 @@
+{%  extends "shop/basic.html" %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block head %}{% endblock %}
+
+{% block body %}
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Profile</h1>
+                <nav class="d-flex align-items-center">
+                    <p><a href="{% url 'home' %}">Home / </a>
+                        <a href="#">Profile</a></p>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+
+<!--================Login Box Area =================-->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <img class="img-fluid rounded img-thumbnail" style="height:400px;width:450px"
+                         src="{{profiles.profile_image.url}}" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+                    <h3>Profile Edit</h3>
+                    <form class="login_form" action="" method="POST" id="contactForm" enctype="multipart/form-data">{% csrf_token %}
+                        
+                      {{form.as_p}}
+                        <div class="col-md-12 form-group">
+                       
+                        <button type="submit" value="submit" class="primary-btn">change</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
